@@ -31,12 +31,12 @@ Update-Database
 | Get    | https://localhost:44332/user/index                           | add 5 users (from external website) to database each time when this method is called. |
 
 ## Architecture for folders
-1. controllers
+1. Controllers
 2. Data: DB context
 3. Entities: classes
 4. Models: view model classes
 5. Profile: autoMapper configuration
-6. services: Interface and the implemented class
+6. Services: Interface and the implemented class
 
 
 
