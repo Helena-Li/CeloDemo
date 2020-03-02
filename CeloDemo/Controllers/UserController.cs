@@ -88,6 +88,10 @@ namespace CeloDemo.Controllers
         [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateUser([FromBody]UserViewModel model, int userId)
         {
+            if (model.Birth>DateTime.Now)
+            {
+                return BadRequest("Date of birth cannot later than today!");
+            }
             var user = await _userRepository.Get(userId);
             if (user == null)
             {

@@ -44,6 +44,7 @@ namespace CeloDemo.UnitTest
             _userRepository = new UserRepository(_context);
         }
 
+        // without query string return default 10 users
         [Fact]
         public void NoQuery()
         {
@@ -53,6 +54,7 @@ namespace CeloDemo.UnitTest
             Assert.Equal(expect, actual);
         }
 
+        // can filter data by first name with small letters
         [Fact]
         public void FilterFirstName()
         {
@@ -62,6 +64,7 @@ namespace CeloDemo.UnitTest
             Assert.Equal(expect, actual);
         }
 
+        // can filter data by last name with capital string
         [Fact]
         public void FilterLastName()
         {
@@ -71,6 +74,7 @@ namespace CeloDemo.UnitTest
             Assert.Equal(expect, actual);
         }
 
+        // can filter data by combining all the fields
         [Fact]
         public void AllQuery()
         {
@@ -85,6 +89,7 @@ namespace CeloDemo.UnitTest
             Assert.Equal(expect, actual);
         }
 
+        // request number<=0 return 1 user
         [Fact]
         public void InvalidNumber()
         {
@@ -109,6 +114,36 @@ namespace CeloDemo.UnitTest
                 FirstName = "a"
             };
             var expect = 1;
+            var actual = _userRepository.FilterUser(_context.Users, filter).CountAsync().Result;
+            Assert.Equal(expect, actual);
+        }
+
+        // no user return null
+        [Fact]
+        public void NoSuchFirstName()
+        {
+            FilterViewModel filter = new FilterViewModel() { FirstName = "anne" };
+            var expect = 0;
+            var actual = _userRepository.FilterUser(_context.Users, filter).CountAsync().Result;
+            Assert.Equal(expect, actual);
+        }
+
+        // asked number > total number return total number
+        [Fact]
+        public void NumberMoreThanDatabase()
+        {
+            FilterViewModel filter = new FilterViewModel() { FirstName = "oli", Number=100 };
+            var expect = 3;
+            var actual = _userRepository.FilterUser(_context.Users, filter).CountAsync().Result;
+            Assert.Equal(expect, actual);
+        }
+
+        // asked number < total number return asked number
+        [Fact]
+        public void NumberLessThanDatabase()
+        {
+            FilterViewModel filter = new FilterViewModel() { FirstName = "oli", Number = 2 };
+            var expect = 2;
             var actual = _userRepository.FilterUser(_context.Users, filter).CountAsync().Result;
             Assert.Equal(expect, actual);
         }

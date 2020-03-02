@@ -17,10 +17,15 @@ namespace CeloDemo.Entities
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public DateTime Birth { get; set; }
+        [Required]
         public string Phone { get; set; }
+        [Required]
         public string LargePicture { get; set; }
+        [Required]
         public string ThumbnailPicture { get; set; }
     }
 }

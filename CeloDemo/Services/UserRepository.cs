@@ -67,6 +67,7 @@ namespace CeloDemo.Services
         {
             if (!string.IsNullOrEmpty(filter.FirstName))
             {
+                // database is unsensitive to capical or small letter
                 model = model.Where(x => x.FirstName.ToLower().Contains(filter.FirstName.ToLower()));
             }
             if (!string.IsNullOrEmpty(filter.LastName))
